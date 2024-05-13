@@ -1,14 +1,18 @@
-const senderSignature = aptos.transaction.sign({ signer: alice, transaction });
-
-// Sponsor signs
-const sponsorSignature = aptos.transaction.signAsFeePayer({
-  signer: sponsor,
-  transaction,
-});
-
-// Submit the transaction to chain
-const committedTxn = await aptos.transaction.submit.simple({
-  transaction,
-  senderAuthenticator: senderSignature,
-  feePayerAuthenticator: sponsorSignature,
-});
+function searchRange(nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+  let start = -1;
+  let end = -1;
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] === target) {
+      start = mid;
+      end = mid;
+      while (nums[start] === target) start--;
+      while (nums[end] === target) end++;
+      return [start + 1, end - 1];
+    } else if (nums[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return [start, end];
+}
