@@ -1,17 +1,10 @@
-function isIsomorphic(s, t) {
-  if (s.length !== t.length) return false;
-  const sMap = new Map();
-  const tMap = new Map();
-  for (let i = 0; i < s.length; i++) {
-    const sChar = s[i];
-    const tChar = t[i];
-    if (
-      (sMap.has(sChar) && sMap.get(sChar) !== tChar) ||
-      (tMap.has(tChar) && tMap.get(tChar) !== sChar)
-    )
-      return false;
-    sMap.set(sChar, tChar);
-    tMap.set(tChar, sChar);
+function rob(nums) {
+  let prevMax = 0;
+  let currMax = 0;
+  for (const num of nums) {
+    const temp = currMax;
+    currMax = Math.max(prevMax + num, currMax);
+    prevMax = temp;
   }
-  return true;
+  return currMax;
 }
